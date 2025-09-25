@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Autentificare - MISEDAINSPECTSRL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-header h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .test-section h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .test-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: grid;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .response {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .success {
+            background: #c6f6d5;
+            border: 1px solid #68d391;
+            color: #22543d;
+        }
+
+        .error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #742a2a;
+        }
+
+        .info {
+            background: #bee3f8;
+            border: 1px solid #63b3ed;
+            color: #2a4365;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🔐 Test Sistem Autentificare</h1>
+            <p>MISEDAINSPECTSRL - Verificare API Authentication</p>
+        </div>
+
+        <!-- Test Register -->
+        <div class="test-section">
+            <h3>📝 Test Înregistrare</h3>
+            <form class="test-form" onsubmit="testRegister(event)">
+                <div class="input-group">
+                    <label>Nume complet:</label>
+                    <input type="text" id="reg-name" value="Test User" required>
+                </div>
+                <div class="input-group">
+                    <label>Email:</label>
+                    <input type="email" id="reg-email" value="test@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Telefon:</label>
+                    <input type="tel" id="reg-phone" value="0722123456" required>
+                </div>
+                <div class="input-group">
+                    <label>Parolă:</label>
+                    <input type="password" id="reg-password" value="Test123!" required>
+                </div>
+                <button type="submit">Testează Înregistrarea</button>
+                <div id="register-response" class="response" style="display: none;"></div>
+            </form>
+        </div>
+
+        <!-- Test Login -->
+        <div class="test-section">
+            <h3>🔓 Test Autentificare</h3>
+            <form class="test-form" onsubmit="testLogin(event)">
+                <div class="input-group">
+                    <label>Email/Telefon:</label>
+                    <input type="text" id="login-email" value="test@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Parolă:</label>
+                    <input type="password" id="login-password" value="Test123!" required>
+                </div>
+                <button type="submit">Testează Login</button>
+                <div id="login-response" class="response" style="display: none;"></div>
+            </form>
+        </div>
+
+        <!-- Test API Status -->
+        <div class="test-section">
+            <h3>⚡ Test Status API</h3>
+            <button onclick="testApiStatus()">Verifică Status API</button>
+            <div id="status-response" class="response" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://www.misedainspectsrl.ro/api';
+
+        async function makeRequest(endpoint, data = null, method = 'GET') {
+            try {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+
+                if (data && method !== 'GET') {
+                    options.body = JSON.stringify(data);
+                }
+
+                const response = await fetch(`${API_BASE}/${endpoint}`, options);
+                const result = await response.json();
+                
+                return {
+                    success: response.ok,
+                    status: response.status,
+                    data: result
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    status: 0,
+                    data: { error: error.message }
+                };
+            }
+        }
+
+        function showResponse(elementId, response, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = `response ${type}`;
+            element.textContent = JSON.stringify(response, null, 2);
+        }
+
+        async function testRegister(event) {
+            event.preventDefault();
+            
+            const data = {
+                action: 'register',
+                name: document.getElementById('reg-name').value,
+                email: document.getElementById('reg-email').value,
+                phone: document.getElementById('reg-phone').value,
+                password: document.getElementById('reg-password').value,
+                confirmPassword: document.getElementById('reg-password').value
+            };
+
+            const response = await makeRequest('auth.php', data, 'POST');
+            const type = response.success ? 'success' : 'error';
+            showResponse('register-response', response, type);
+        }
+
+        async function testLogin(event) {
+            event.preventDefault();
+            
+            const data = {
+                action: 'login',
+                emailOrPhone: document.getElementById('login-email').value,
+                password: document.getElementById('login-password').value
+            };
+
+            const response = await makeRequest('auth.php', data, 'POST');
+            const type = response.success ? 'success' : 'error';
+            showResponse('login-response', response, type);
+        }
+
+        async function testApiStatus() {
+            const response = await makeRequest('auth.php?action=status', null, 'GET');
+            const type = response.success ? 'success' : 'error';
+            showResponse('status-response', response, type);
+        }
+    </script>
+</body>
+</html>
