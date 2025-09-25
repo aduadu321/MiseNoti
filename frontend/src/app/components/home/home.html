@@ -1,0 +1,173 @@
+<div class="home-container">
+  <!-- Header Navigation -->
+  <header class="main-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <h1 class="company-name">MISEDAINSPECTSRL</h1>
+        <p class="company-tagline">Servicii Complete de Inspecție și Control</p>
+      </div>
+      
+      <nav class="main-navigation">
+        <button class="nav-item active" (click)="scrollToSection('home')">
+          <i class="icon">🏠</i> Home
+        </button>
+        <button class="nav-item" (click)="goToLogin()">
+          <i class="icon">👤</i> Login
+        </button>
+        <button class="nav-item" (click)="goToProgramare()">
+          <i class="icon">📅</i> Programare
+        </button>
+        <button class="nav-item" (click)="goToTeste()">
+          <i class="icon">🔬</i> Teste
+        </button>
+        <button class="nav-item" (click)="goToServicii()">
+          <i class="icon">⚙️</i> Servicii
+        </button>
+        <button class="nav-item" (click)="goToContact()">
+          <i class="icon">📞</i> Contact
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Servicii Profesionale de Inspecție</h1>
+      <p class="hero-subtitle">
+        Oferim servicii complete de inspecție și control pentru diverse industrii, 
+        cu echipamente de ultimă generație și personal specializat.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" (click)="goToProgramare()">
+          📅 Programează o Inspecție
+        </button>
+        <button class="btn-secondary" (click)="goToServicii()">
+          📋 Vezi Serviciile
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicii Section -->
+  <section id="servicii" class="services-section">
+    <div class="section-content">
+      <h2 class="section-title">Serviciile Noastre</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <h3>Inspecții Tehnice</h3>
+          <p>Inspecții complete pentru echipamente industriale și sisteme de siguranță.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>Control Instalații Electrice</h3>
+          <p>Verificarea și testarea instalațiilor electrice conform normelor în vigoare.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3>Inspecții Construcții</h3>
+          <p>Evaluarea structurală și verificarea conformității construcțiilor.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3>Siguranță și Sănătate</h3>
+          <p>Audit și control pentru respectarea normelor de siguranță în muncă.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teste Section -->
+  <section id="teste" class="tests-section">
+    <div class="section-content">
+      <h2 class="section-title">Teste Efectuate</h2>
+      <div class="tests-grid">
+        <div class="test-category">
+          <h3>🔬 Teste de Laborator</h3>
+          <ul>
+            <li>Analize chimice</li>
+            <li>Teste de rezistență materiale</li>
+            <li>Control calitate produse</li>
+            <li>Analize microbiologice</li>
+          </ul>
+        </div>
+        <div class="test-category">
+          <h3>⚡ Teste Electrice</h3>
+          <ul>
+            <li>Măsurători rezistență izolație</li>
+            <li>Teste continuitate</li>
+            <li>Control diferențiale</li>
+            <li>Măsurători împământare</li>
+          </ul>
+        </div>
+        <div class="test-category">
+          <h3>🏗️ Teste Structurale</h3>
+          <ul>
+            <li>Teste de încărcare</li>
+            <li>Control suduri</li>
+            <li>Analize nedistructive</li>
+            <li>Măsurători deformații</li>
+          </ul>
+        </div>
+        <div class="test-category">
+          <h3>🌡️ Teste Termice</h3>
+          <ul>
+            <li>Termografie infraroșu</li>
+            <li>Măsurători temperatură</li>
+            <li>Control izolații termice</li>
+            <li>Analize eficiență energetică</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="section-content">
+      <h2 class="section-title">Contactează-ne</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>📍 Informații Contact</h3>
+          <div class="contact-item">
+            <i class="icon">📞</i>
+            <span>+40 XXX XXX XXX</span>
+          </div>
+          <div class="contact-item">
+            <i class="icon">✉️</i>
+            <span>contact@misedainspectsrl.ro</span>
+          </div>
+          <div class="contact-item">
+            <i class="icon">🏢</i>
+            <span>Adresa oficiu principal</span>
+          </div>
+          <div class="contact-item">
+            <i class="icon">🕒</i>
+            <span>Luni - Vineri: 08:00 - 17:00</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <h3>🚀 Începe Acum</h3>
+          <p>Creează un cont pentru a programa inspecții și a urmări progresul acestora.</p>
+          <div class="action-buttons">
+            <button class="btn-primary" (click)="goToRegister()">
+              ➕ Înregistrează-te
+            </button>
+            <button class="btn-secondary" (click)="goToLogin()">
+              👤 Autentifică-te
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 MISEDAINSPECTSRL. Toate drepturile rezervate.</p>
+      <p>Servicii profesionale de inspecție și control tehnic.</p>
+    </div>
+  </footer>
+</div>
