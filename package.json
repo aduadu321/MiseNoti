@@ -1,0 +1,52 @@
+{
+  "name": "mise-noti",
+  "version": "1.0.0",
+  "description": "MiseNoti - Sistem Complete de Inspecție și Control pentru Autovehicule",
+  "main": "index.js",
+  "scripts": {
+    "build:frontend": "cd frontend && npm install && ng build --configuration production",
+    "build:backend": "xcopy backend\\*.php dist\\backend\\ /E /H /Y && xcopy backend\\api\\*.php dist\\backend\\api\\ /E /H /Y && xcopy backend\\config\\*.php dist\\backend\\config\\ /E /H /Y",
+    "build:mcp": "cd mcp-server && npm install && npm run build",
+    "build:mock": "cd mock-backend && npm install",
+    "build:all": "npm run build:frontend && npm run build:mcp && npm run build:mock",
+    "deploy:prepare": "if not exist dist mkdir dist && if not exist dist\\backend mkdir dist\\backend && if not exist dist\\backend\\api mkdir dist\\backend\\api && if not exist dist\\backend\\config mkdir dist\\backend\\config",
+    "deploy": "npm run deploy:prepare && npm run build:all",
+    "serve:frontend": "cd frontend && ng serve",
+    "serve:backend": "cd mock-backend && node server.js",
+    "serve:mcp": "cd mcp-server && npm start",
+    "dev": "concurrently \"npm run serve:frontend\" \"npm run serve:backend\" \"npm run serve:mcp\"",
+    "start": "npm run dev",
+    "test:frontend": "cd frontend && ng test",
+    "test:backend": "cd mock-backend && npm test",
+    "lint": "cd frontend && ng lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aduadu321/MiseNoti.git"
+  },
+  "keywords": [
+    "angular",
+    "php",
+    "mysql",
+    "authentication", 
+    "github-oauth",
+    "mcp-server",
+    "typescript",
+    "automotive",
+    "inspection",
+    "misenoti"
+  ],
+  "author": "MISEDAINSPECTSRL",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aduadu321/MiseNoti/issues"
+  },
+  "homepage": "https://github.com/aduadu321/MiseNoti#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
