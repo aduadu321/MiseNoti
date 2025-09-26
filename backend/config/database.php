@@ -1,17 +1,29 @@
 <?php
 
+require_once __DIR__ . '/environment.php';
+
 /**
  * Database Configuration for PHP 8.4.11
  * Compatible with MySQL 8.4.11 / MariaDB 11.4.8
+ * Now uses environment variables for production security
  */
 
 class Database
 {
-    private $host = 'localhost';
-    private $db_name = 'misedain_users';
-    private $username = 'misedain_admin';
-    private $password = '5bCKGA0D2vVMxbKo';
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     private $conn;
+
+    public function __construct()
+    {
+        Environment::load();
+        $this->host = Environment::get('DB_HOST', 'localhost');
+        $this->db_name = Environment::get('DB_NAME', 'misedain_users');
+        $this->username = Environment::get('DB_USERNAME', 'misedain_admin');
+        $this->password = Environment::get('DB_PASSWORD', '5bCKGA0D2vVMxbKo');
+    }
 
     /**
      * Get database connection
